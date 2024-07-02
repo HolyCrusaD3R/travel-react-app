@@ -1,65 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+// import { Link } from "react-router-dom";
 
-import Georgia from "../../public/DestinationPhotos/Georgia.png";
-import France from "../../public/DestinationPhotos/France.png";
-import Greece from "../../public/DestinationPhotos/Greece.png";
-import Italy from "../../public/DestinationPhotos/Italy.png";
-import Japan from "../../public/DestinationPhotos/Japan.png";
-import Morroco from "../../public/DestinationPhotos/Morroco.png";
-
-const toursData = [
-  {
-    id: 1,
-    name: "Georgia",
-    description: "Georgia Highlands Hike",
-    startTime: new Date("2024-07-17T10:00:00"),
-    duration: 2 * 60 * 60,
-    image: Georgia,
-  },
-  {
-    id: 2,
-    name: "France",
-    description: "Secrets of Paris",
-    startTime: new Date("2024-10-05T15:00:00"),
-    duration: 5 * 60 * 60,
-    image: France,
-  },
-  {
-    id: 3,
-    name: "Greece",
-    description: "Discover the ancient gods of the Greek",
-    startTime: new Date("2025-06-08T09:00:00"),
-    duration: 3 * 60 * 60,
-    image: Greece,
-  },
-  {
-    id: 4,
-    name: "Italy",
-    description: "Travel the city built on water",
-    startTime: new Date("2025-08-12T09:00:00"),
-    duration: 3 * 60 * 60,
-    image: Italy,
-  },
-  {
-    id: 5,
-    name: "Japan",
-    description: "Japanese Sakura Blossom Tour",
-    startTime: new Date("2025-03-04T12:00:00"),
-    duration: 1 * 60 * 60,
-    image: Japan,
-  },
-  {
-    id: 6,
-    name: "Morroco",
-    description: "Travel the sea of sand",
-    startTime: new Date("2026-11-04T12:00:00"),
-    duration: 5 * 60 * 60,
-    image: Morroco,
-  },
-];
-
-const ProductGallery = () => {
+const ProductGallery = ({ currentContent }) => {
+  console.log(currentContent);
+  const toursData = currentContent.toursData;
+  console.log(toursData);
   const [hoveredTour, setHoveredTour] = useState(null);
   const [sortCriteria, setSortCriteria] = useState({
     sortBy: "name", // Default sorting by name
@@ -113,7 +58,7 @@ const ProductGallery = () => {
   return (
     <div className="flex flex-col items-center">
         <div className="flex justify-end mb-4 mt-20 bg-gray-800 text-white rounded-lg pl-5 pr-5 pt-2 pb-2 items-center">
-            <label className="mr-2">Sort by:</label>
+            <label className="mr-2">{currentContent.SortBy}</label>
             <select
             value={sortCriteria.sortBy}
             onChange={(e) =>
@@ -121,15 +66,15 @@ const ProductGallery = () => {
             }
             className="px-2 py-1 border bg-white text-gray-800 rounded-md"
             >
-            <option value="name">Name</option>
-            <option value="none">None</option>
+            <option value="name">{currentContent.Name}</option>
+            <option value="none">{currentContent.None}</option>
             {/* Add more sorting options here */}
             </select>
             <button
             onClick={toggleSortOrder}
             className="ml-2 px-2 py-1 bg-white text-gray-800 rounded-md"
             >
-            {sortCriteria.sortOrder === "asc" ? "Asc" : "Desc"}
+            {sortCriteria.sortOrder === "asc" ? currentContent.Asc : currentContent.Desc}
             </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-20">
@@ -140,6 +85,7 @@ const ProductGallery = () => {
             isHovered={hoveredTour === tour.id}
             onMouseEnter={() => handleMouseEnter(tour.id)}
             onMouseLeave={handleMouseLeave}
+            currentContent={currentContent}
             />
         ))}
         </div>
@@ -147,7 +93,7 @@ const ProductGallery = () => {
   );
 };
 
-const TourElement = ({ tour, isHovered, onMouseEnter, onMouseLeave }) => {
+const TourElement = ({ tour, isHovered, onMouseEnter, onMouseLeave, currentContent }) => {
   const calculateTimeLeft = (startTime, duration) => {
     const endTime = new Date(startTime.getTime() + duration * 1000);
     const now = new Date();
@@ -202,11 +148,11 @@ const TourElement = ({ tour, isHovered, onMouseEnter, onMouseLeave }) => {
         {isHovered && (
           <div className="text-center">
             <p className="text-sm">
-              Starts at: {tour.startTime.toLocaleTimeString()}
+              {currentContent.Starts} {tour.startTime.toLocaleTimeString()}
             </p>
             <p className="text-sm">
-              Time left: {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m{" "}
-              {timeLeft.seconds}s
+              {currentContent.TimeLeft} {timeLeft.years}{currentContent.Year} {timeLeft.days}{currentContent.Day} {timeLeft.hours}{currentContent.Hour} {timeLeft.minutes}{currentContent.Minute}{" "}
+              {timeLeft.seconds}{currentContent.Second}
             </p>
           </div>
         )}
