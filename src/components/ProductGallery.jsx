@@ -1,53 +1,48 @@
 import { useState, useEffect } from "react";
-// import { Link } from "react-router-dom";
 
 const ProductGallery = ({ currentContent }) => {
-  console.log(currentContent);
   const toursData = currentContent.toursData;
-  console.log(toursData);
   const [hoveredTour, setHoveredTour] = useState(null);
   const [sortCriteria, setSortCriteria] = useState({
-    sortBy: "name", // Default sorting by name
-    sortOrder: "asc", // Default ascending order
+    sortBy: "name",
+    sortOrder: "asc",
+  });
+  const [filterCriteria, setFilterCriteria] = useState({
+    searchTerm: "",
+    country: "all",
   });
 
-  // Function to handle mouse enter
   const handleMouseEnter = (tourId) => {
     setHoveredTour(tourId);
   };
 
-  // Function to handle mouse leave
   const handleMouseLeave = () => {
     setHoveredTour(null);
   };
 
-  // Function to sort tours based on criteria
   const sortTours = (tours, sortBy, sortOrder) => {
     const sortedTours = [...tours];
     sortedTours.sort((a, b) => {
       if (sortBy === "name") {
-        // Sort by name lexicographically
-        if (sortOrder === "asc") {
-          return a.name.localeCompare(b.name);
-        } else {
-          return b.name.localeCompare(a.name);
-        }
+        return sortOrder === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
       } else {
-        // Add more sorting options based on other criteria if needed
-        return 0; // Default to no sorting
+        return 0;
       }
     });
     return sortedTours;
   };
 
-  // Apply sorting based on current criteria
-  const sortedTours = sortTours(
-    toursData,
-    sortCriteria.sortBy,
-    sortCriteria.sortOrder
-  );
+  const filterTours = (tours, filterCriteria) => {
+    return tours.filter((tour) => {
+      const matchesSearchTerm = tour.name.toLowerCase().includes(filterCriteria.searchTerm.toLowerCase());
+      const matchesCountry = filterCriteria.country === "all" || tour.name === filterCriteria.country;
+      return matchesSearchTerm && matchesCountry;
+    });
+  };
 
-  // Function to toggle sorting order
+  const sortedTours = sortTours(toursData, sortCriteria.sortBy, sortCriteria.sortOrder);
+  const filteredTours = filterTours(sortedTours, filterCriteria);
+
   const toggleSortOrder = () => {
     setSortCriteria({
       ...sortCriteria,
@@ -57,38 +52,69 @@ const ProductGallery = ({ currentContent }) => {
 
   return (
     <div className="flex flex-col items-center">
-        <div className="flex justify-end mb-4 mt-20 bg-gray-800 text-white rounded-lg pl-5 pr-5 pt-2 pb-2 items-center">
-            <label className="mr-2">{currentContent.SortBy}</label>
-            <select
+      <div className="flex flex-col mb-4 mt-20 bg-gray-800 text-white rounded-lg p-5 items-center w-full space-y-4 sm:space-y-0 sm:flex-row sm:justify-between">
+        <div className="flex justify-start w-full mb-4">
+          <label className="mr-2">{currentContent.SortBy}</label>
+          <select
             value={sortCriteria.sortBy}
             onChange={(e) =>
-                setSortCriteria({ ...sortCriteria, sortBy: e.target.value })
+              setSortCriteria({ ...sortCriteria, sortBy: e.target.value })
             }
             className="px-2 py-1 border bg-white text-gray-800 rounded-md"
-            >
+          >
             <option value="name">{currentContent.Name}</option>
             <option value="none">{currentContent.None}</option>
             {/* Add more sorting options here */}
-            </select>
-            <button
+          </select>
+          <button
             onClick={toggleSortOrder}
             className="ml-2 px-2 py-1 bg-white text-gray-800 rounded-md"
-            >
+          >
             {sortCriteria.sortOrder === "asc" ? currentContent.Asc : currentContent.Desc}
-            </button>
+          </button>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-20">
-        {sortedTours.map((tour) => (
-            <TourElement
+        <div className="flex justify-center w-full mb-4">
+          <label className="mr-2">{currentContent.Search}</label>
+          <input
+            type="text"
+            value={filterCriteria.searchTerm}
+            onChange={(e) =>
+              setFilterCriteria((prevFilterCriteria) => {return { ...prevFilterCriteria, searchTerm: e.target.value }})
+            }
+            className="px-2 py-1 border bg-white text-gray-800 rounded-md"
+          />
+        </div>
+        <div className="flex justify-end w-full">
+          <label className="mr-2">{currentContent.Country}</label>
+          <select
+            value={filterCriteria.country}
+            onChange={(e) =>
+              setFilterCriteria((prevFilterCriteria) => {return { ...prevFilterCriteria, country: e.target.value }})
+            }
+            className="px-2 py-1 border bg-white text-gray-800 rounded-md"
+          >
+            <option value="all">{currentContent.All}</option>
+            <option value={currentContent.Georgia}>{currentContent.Georgia}</option>
+            <option value={currentContent.France}>{currentContent.France}</option>
+            <option value={currentContent.Greece}>{currentContent.Greece}</option>
+            <option value={currentContent.Italy}>{currentContent.Italy}</option>
+            <option value={currentContent.Japan}>{currentContent.Japan}</option>
+            <option value={currentContent.Morroco}>{currentContent.Morroco}</option>
+          </select>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-20">
+        {filteredTours.map((tour) => (
+          <TourElement
             key={tour.id}
             tour={tour}
             isHovered={hoveredTour === tour.id}
             onMouseEnter={() => handleMouseEnter(tour.id)}
             onMouseLeave={handleMouseLeave}
             currentContent={currentContent}
-            />
+          />
         ))}
-        </div>
+      </div>
     </div>
   );
 };

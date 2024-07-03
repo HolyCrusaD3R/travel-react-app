@@ -2,12 +2,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from "react";
 import Home from "./components/Home";
 
-import Georgia from "../public/DestinationPhotos/Georgia.png";
-import France from "../public/DestinationPhotos/France.png";
-import Greece from "../public/DestinationPhotos/Greece.png";
-import Italy from "../public/DestinationPhotos/Italy.png";
-import Japan from "../public/DestinationPhotos/Japan.png";
-import Morroco from "../public/DestinationPhotos/Morroco.png";
+import Georgia from "/DestinationPhotos/Georgia.png";
+import France from "/DestinationPhotos/France.png";
+import Greece from "/DestinationPhotos/Greece.png";
+import Italy from "/DestinationPhotos/Italy.png";
+import Japan from "/DestinationPhotos/Japan.png";
+import Morroco from "/DestinationPhotos/Morroco.png";
 
 const content = {
     'Georgia': {
@@ -26,6 +26,15 @@ const content = {
         "Hour": " საათი",
         "Minute": " წუთი",
         "Second": " წამი",
+        "Search": "მოძებნე",
+        "Country": "ქვეყანა",
+        "All": "ყველა",
+        "Georgia": "საქართველო",
+        "France": "საფრანგეთი",
+        "Greece": "საბერძნეთი",
+        "Italy": "იტალია",
+        "Japan": "იაპონია",
+        "Morroco": "მაროკო",
         'toursData': [
           {
             id: 1,
@@ -69,7 +78,7 @@ const content = {
           },
           {
             id: 6,
-            name: "მოროკო",
+            name: "მაროკო",
             description: "იმოგზაურე ქვიშის ზღვაზე",
             startTime: new Date("2026-11-04T12:00:00"),
             duration: 5 * 60 * 60,
@@ -93,6 +102,15 @@ const content = {
         "Hour": "h",
         "Minute": "m",
         "Second": "s",
+        "Search": "Search",
+        "Country": "Country",
+        "All": "All",
+        "Georgia": "Georgia",
+        "France": "France",
+        "Greece": "Greece",
+        "Italy": "Italy",
+        "Japan": "Japan",
+        "Morroco": "Morroco",
         'toursData': [
           {
             id: 1,
