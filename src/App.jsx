@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Home from "./components/Home";
 import SignupPage from './components/SignupPage';
@@ -44,6 +44,11 @@ const content = {
         "ThreeHourPlus": "3სთ+",
         "FiveHourPlus": "5სთ+",
         "YearLabel": "წელი",
+        "FillAllFields": "შეავსეთ ყველა ველი",
+        "SignupSuccess": "გაწევრიანება წარმატებულია",
+        "Username": "მომხმარებლის სახელი",
+        "Email": "ელექტრონული მეილი",
+        "Password": "პაროლი",
         'toursData': [
           {
             id: 1,
@@ -127,6 +132,11 @@ const content = {
         "ThreeHourPlus": "3hr+",
         "FiveHourPlus": "5hr+",
         "YearLabel": "Year",
+        "FillAllFields": "Fill all fields",
+        "SignupSuccess": "Signup Success",
+        "Username": "Username",
+        "Email": "Email",
+        "Password": "Password",
         'toursData': [
           {
             id: 1,
@@ -182,12 +192,21 @@ const content = {
 
 function App() {
 
-  const [isEnglish, setIsEnglish] = useState(true);
+  const [isEnglish, setIsEnglish] = useState(() => {
+    // Retrieve the language preference from localStorage, default to true (English) if not set
+    const savedLanguage = localStorage.getItem('language');
+    return savedLanguage ? savedLanguage === 'English' : true;
+  });
+
+  useEffect(() => {
+    // Save the language preference to localStorage whenever it changes
+    localStorage.setItem('language', isEnglish ? 'English' : 'Georgia');
+  }, [isEnglish]);
 
   function updateLanguage() {
     setIsEnglish((prevIsEnglish) => !prevIsEnglish);
   }
-  
+
   const currentContent = isEnglish ? content.English : content.Georgia;
 
   return (
