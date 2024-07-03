@@ -8,14 +8,21 @@ const LoginForm = ({ currentContent }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Basic form validation
     if (!email || !password) {
       setErrorMessage(currentContent.FillAllFields);
       return;
     }
 
+    // Submit the form (this is just a placeholder, you can replace it with an actual API call)
     console.log({ email, password });
     setErrorMessage('');
     alert(currentContent.LoginSuccess);
+  };
+
+  const handleFacebookLogin = () => {
+    // Placeholder for Facebook login logic
+    alert('Logging in with Facebook...');
   };
 
   return (
@@ -56,6 +63,14 @@ const LoginForm = ({ currentContent }) => {
           </button>
         </div>
       </form>
+      <div className="flex items-center justify-between">
+        <button
+          onClick={handleFacebookLogin}
+          className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+        >
+          {currentContent.LoginWithFacebook}
+        </button>
+      </div>
     </div>
   );
 };
