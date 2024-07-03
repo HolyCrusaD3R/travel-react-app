@@ -10,6 +10,8 @@ const ProductGallery = ({ currentContent }) => {
   const [filterCriteria, setFilterCriteria] = useState({
     searchTerm: "",
     country: "all",
+    duration: "all",
+    year: "all",
   });
 
   const handleMouseEnter = (tourId) => {
@@ -25,6 +27,10 @@ const ProductGallery = ({ currentContent }) => {
     sortedTours.sort((a, b) => {
       if (sortBy === "name") {
         return sortOrder === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+      } else if (sortBy === "date") {
+        const dateA = new Date(a.startTime).getTime();
+        const dateB = new Date(b.startTime).getTime();
+        return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
       } else {
         return 0;
       }
@@ -36,7 +42,10 @@ const ProductGallery = ({ currentContent }) => {
     return tours.filter((tour) => {
       const matchesSearchTerm = tour.name.toLowerCase().includes(filterCriteria.searchTerm.toLowerCase());
       const matchesCountry = filterCriteria.country === "all" || tour.name === filterCriteria.country;
-      return matchesSearchTerm && matchesCountry;
+      const durationFilter = filterCriteria.duration === "all" ? 0 : (filterCriteria.duration === "1hr+" || filterCriteria.duration === "1სთ+") ? 60 * 60 : (filterCriteria.duration === "3hr+" || filterCriteria.duration === "3სთ+") ? 3 * 60 * 60 : 5 * 60 * 60;
+      const matchesDuration = tour.duration >= durationFilter;
+      const matchesYear = filterCriteria.year === "all" || filterCriteria.year === tour.startTime.getFullYear().toString();
+      return matchesSearchTerm && matchesCountry && matchesDuration && matchesYear;
     });
   };
 
@@ -64,7 +73,9 @@ const ProductGallery = ({ currentContent }) => {
           >
             <option value="name">{currentContent.Name}</option>
             <option value="none">{currentContent.None}</option>
+            <option value="date">{currentContent.Date}</option>
             {/* Add more sorting options here */}
+      console.log(filterCriteria);
           </select>
           <button
             onClick={toggleSortOrder}
@@ -100,6 +111,32 @@ const ProductGallery = ({ currentContent }) => {
             <option value={currentContent.Italy}>{currentContent.Italy}</option>
             <option value={currentContent.Japan}>{currentContent.Japan}</option>
             <option value={currentContent.Morroco}>{currentContent.Morroco}</option>
+          </select>
+          <label className="ml-4 mr-2">{currentContent.Duration}</label>
+          <select
+            value={filterCriteria.duration}
+            onChange={(e) =>
+              setFilterCriteria((prevFilterCriteria) => {return { ...prevFilterCriteria, duration: e.target.value }})
+            }
+            className="px-2 py-1 border bg-white text-gray-800 rounded-md"
+          >
+            <option value="all">{currentContent.All}</option>
+            <option value={currentContent.OneHourPlus}>{currentContent.OneHourPlus}</option>
+            <option value={currentContent.ThreeHourPlus}>{currentContent.ThreeHourPlus}</option>
+            <option value={currentContent.FiveHourPlus}>{currentContent.FiveHourPlus}</option>
+          </select>
+          <label className="ml-4 mr-2">{currentContent.YearLabel}</label>
+          <select
+            value={filterCriteria.year}
+            onChange={(e) =>
+              setFilterCriteria((prevFilterCriteria) => {return { ...prevFilterCriteria, year: e.target.value }})
+            }
+            className="px-2 py-1 border bg-white text-gray-800 rounded-md"
+          >
+            <option value="all">{currentContent.All}</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
           </select>
         </div>
       </div>
