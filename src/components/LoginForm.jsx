@@ -23,9 +23,9 @@ const LoginForm = ({ currentContent }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10">
+    <div className="max-w-md mx-auto mt-52">
       <h2 className="text-2xl font-bold mb-5">{currentContent.Login}</h2>
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form onSubmit={handleSubmit} className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
             {currentContent.Email}

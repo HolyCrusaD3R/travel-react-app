@@ -41,7 +41,7 @@ const TourElement = ({ tour, isHovered, onMouseEnter, onMouseLeave, onClick, cur
 
   return (
     <div
-      className={`relative group ${isHovered ? "scale-105" : ""} transition-transform duration-300 ease-in-out text-black shadow-md`}
+      className={`relative group ${isHovered ? "scale-105" : ""} transition-transform duration-300 ease-in-out text-black shadow-md overflow-hidden`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
@@ -51,7 +51,7 @@ const TourElement = ({ tour, isHovered, onMouseEnter, onMouseLeave, onClick, cur
         alt={tour.name}
         className="w-full h-64 object-cover rounded-md shadow-md"
       />
-      <div className="absolute inset-0 bg-white bg-opacity-45 hidden group-hover:flex flex-col justify-center items-center p-4">
+      <div className={`absolute inset-0 bg-white bg-opacity-45 hidden group-hover:flex flex-col justify-center items-center p-4`}>
         <h3 className="font-bold text-lg mb-2">{tour.name}</h3>
         {isHovered && (
           <div className="text-center">
@@ -61,6 +61,9 @@ const TourElement = ({ tour, isHovered, onMouseEnter, onMouseLeave, onClick, cur
             <p className="text-sm">
               {currentContent.TimeLeft} {timeLeft.years}{currentContent.Year} {timeLeft.days}{currentContent.Day} {timeLeft.hours}{currentContent.Hour} {timeLeft.minutes}{currentContent.Minute}{" "}
               {timeLeft.seconds}{currentContent.Second}
+            </p>
+            <p className="text-sm">
+              {currentContent.Price}: {tour.price}$
             </p>
           </div>
         )}

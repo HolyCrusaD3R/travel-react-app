@@ -54,14 +54,18 @@ const content = {
         "Username": "მომხმარებლის სახელი",
         "Email": "ელექტრონული მეილი",
         "Password": "პაროლი",
+        "YourSelectedTours": "არჩეული ტურები",
+        "Price": "ღირებულება",
+        "Total": "ჯამი",
         'toursData': [
           {
             id: 1,
             name: "საქართველო",
             description: "საქართველოს მაღალმთიანი ტური",
-            startTime: new Date("2023-07-17T10:00:00"),
+            startTime: new Date("2024-07-17T10:00:00"),
             duration: 2 * 60 * 60,
             image: Georgia,
+            price: 200,
           },
           {
             id: 2,
@@ -70,6 +74,7 @@ const content = {
             startTime: new Date("2024-10-05T15:00:00"),
             duration: 5 * 60 * 60,
             image: France,
+            price: 600,
           },
           {
             id: 3,
@@ -78,6 +83,7 @@ const content = {
             startTime: new Date("2025-06-08T09:00:00"),
             duration: 3 * 60 * 60,
             image: Greece,
+            price: 300,
           },
           {
             id: 4,
@@ -86,6 +92,7 @@ const content = {
             startTime: new Date("2025-08-12T09:00:00"),
             duration: 3 * 60 * 60,
             image: Italy,
+            price: 400,
           },
           {
             id: 5,
@@ -94,6 +101,7 @@ const content = {
             startTime: new Date("2025-03-04T12:00:00"),
             duration: 1 * 60 * 60,
             image: Japan,
+            price: 600,
           },
           {
             id: 6,
@@ -102,6 +110,7 @@ const content = {
             startTime: new Date("2025-11-04T12:00:00"),
             duration: 5 * 60 * 60,
             image: Morroco,
+            price: 200,
           },
         ],
     },
@@ -145,14 +154,18 @@ const content = {
         "Username": "Username",
         "Email": "Email",
         "Password": "Password",
+        "YourSelectedTours": "Your selected tours",
+        "Price": "Price",
+        "Total": "Total",
         'toursData': [
           {
             id: 1,
             name: "Georgia",
             description: "Georgia Highlands Hike",
-            startTime: new Date("2023-07-17T10:00:00"),
+            startTime: new Date("2024-07-17T10:00:00"),
             duration: 2 * 60 * 60,
             image: Georgia,
+            price: 200,
           },
           {
             id: 2,
@@ -161,6 +174,7 @@ const content = {
             startTime: new Date("2024-10-05T15:00:00"),
             duration: 5 * 60 * 60,
             image: France,
+            price: 600,
           },
           {
             id: 3,
@@ -169,6 +183,7 @@ const content = {
             startTime: new Date("2025-06-08T09:00:00"),
             duration: 3 * 60 * 60,
             image: Greece,
+            price: 300,
           },
           {
             id: 4,
@@ -177,6 +192,7 @@ const content = {
             startTime: new Date("2025-08-12T09:00:00"),
             duration: 3 * 60 * 60,
             image: Italy,
+            price: 400,
           },
           {
             id: 5,
@@ -185,6 +201,7 @@ const content = {
             startTime: new Date("2025-03-04T12:00:00"),
             duration: 1 * 60 * 60,
             image: Japan,
+            price: 600,
           },
           {
             id: 6,
@@ -193,6 +210,7 @@ const content = {
             startTime: new Date("2025-11-04T12:00:00"),
             duration: 5 * 60 * 60,
             image: Morroco,
+            price: 200,
           },
         ],
     },

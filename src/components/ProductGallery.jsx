@@ -164,14 +164,13 @@ const ProductGallery = ({ currentContent }) => {
             className="px-2 py-1 border bg-white text-gray-800 rounded-md"
           >
             <option value="all">{currentContent.All}</option>
-            <option value="2023">2023</option>
             <option value="2024">2024</option>
             <option value="2025">2025</option>
           </select>
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 m-20">
-        <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-20">
+      <div className="flex flex-col lg:flex-row gap-6 m-20">
+        <div className="flex-1 h-4/5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-20">
           {filteredTours.map((tour) => (
             <TourElement
               key={tour.id}
@@ -184,8 +183,8 @@ const ProductGallery = ({ currentContent }) => {
             />
           ))}
         </div>
-        <div className="lg:col-span-1 mt-20 mr-20">
-        <ProfileCard currentContent={currentContent} chosenTours={chosenTours} />
+        <div className="mt-20 mr-20 w-1/5">
+          <ProfileCard currentContent={currentContent} chosenTours={chosenTours} />
         </div>
       </div>
     </div>

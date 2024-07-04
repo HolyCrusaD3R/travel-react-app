@@ -1,4 +1,4 @@
-const Profile = ({ image }) => {
+const Profile = ({ image, currentContent }) => {
     return (
     <>
     <div className="p-4 flex flex-col items-center">
@@ -10,7 +10,7 @@ const Profile = ({ image }) => {
     </div>
     <div className="p-4 flex flex-col items-center">
         <p>
-            Your Selected Tours
+            {currentContent.YourSelectedTours}
         </p>
     </div>
     </>
