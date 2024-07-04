@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Home from "./components/Home";
 import SignupPage from './components/SignupPage';
 import LoginPage from './components/LoginPage';
-import ProfilePage from './components/ProfilePage';
+import ContactUsPage from './components/ContactUsPage';
+// import ProfilePage from './components/ProfilePage';
 
 import Georgia from "/DestinationPhotos/Georgia.png";
 import France from "/DestinationPhotos/France.png";
@@ -12,6 +13,8 @@ import Greece from "/DestinationPhotos/Greece.png";
 import Italy from "/DestinationPhotos/Italy.png";
 import Japan from "/DestinationPhotos/Japan.png";
 import Morroco from "/DestinationPhotos/Morroco.png";
+import Kutaisi from "/DestinationPhotos/Kutaisi.jpg";
+import Vietnam from "/DestinationPhotos/Vietnam.webp";
 
 const content = {
     'Georgia': {
@@ -21,6 +24,7 @@ const content = {
         "Login": "შესვლა",
         "Profile": "პროფილი",
         "Name": "სახელით",
+        "NameOfForm": "სახელი",
         "None": "არაფრით",
         "Date": "თარიღით",
         "SortBy": "დალაგება:",
@@ -57,6 +61,9 @@ const content = {
         "YourSelectedTours": "არჩეული ტურები",
         "Price": "ღირებულება",
         "Total": "ჯამი",
+        "Message": "მესიჯი",
+        "ContactUs": "დაგვიკავშირდი",
+        "Success": "წარმატებულია",
         'toursData': [
           {
             id: 1,
@@ -112,6 +119,24 @@ const content = {
             image: Morroco,
             price: 200,
           },
+          {
+            id: 7,
+            name: "საქართველო",
+            description: "ქუთაისი, ძველი დედაქალაქი",
+            startTime: new Date("2024-08-17T10:00:00"),
+            duration: 3 * 60 * 60,
+            image: Kutaisi,
+            price: 300,
+          },
+          {
+            id: 8,
+            name: "ვიეტნამი",
+            description: "აღმოაჩინე გასაოცარი ჯუნგლები",
+            startTime: new Date("2025-06-17T10:00:00"),
+            duration: 4 * 60 * 60,
+            image: Vietnam,
+            price: 150,
+          },
         ],
     },
     'English': {
@@ -121,6 +146,7 @@ const content = {
         "Login": "Log in",
         "Profile": "Profile",
         "Name": "Name",
+        "NameOfForm": "Name",
         "None": "None",
         "Date": "Date",
         "SortBy": "Sort by:",
@@ -157,6 +183,9 @@ const content = {
         "YourSelectedTours": "Your selected tours",
         "Price": "Price",
         "Total": "Total",
+        "Message": "Message",
+        "ContactUs": "Contact us",
+        "Success": "Success",
         'toursData': [
           {
             id: 1,
@@ -212,6 +241,24 @@ const content = {
             image: Morroco,
             price: 200,
           },
+          {
+            id: 7,
+            name: "Georgia",
+            description: "Kutaisi, ex-capital city",
+            startTime: new Date("2024-08-17T10:00:00"),
+            duration: 3 * 60 * 60,
+            image: Kutaisi,
+            price: 300,
+          },
+          {
+            id: 8,
+            name: "Vietnam",
+            description: "Discover breathtaking jungles",
+            startTime: new Date("2025-06-17T10:00:00"),
+            duration: 4 * 60 * 60,
+            image: Vietnam,
+            price: 150,
+          },
         ],
     },
 }
@@ -244,6 +291,7 @@ function App() {
           <Route path="/signup" element={<SignupPage onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} />
           <Route path="/login" element={<LoginPage onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} />
           {/* <Route path="/profile" element={<ProfilePage onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} /> */}
+          <Route path="/contactus" element={<ContactUsPage onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} />
         </Routes>
       </BrowserRouter>
     </>
