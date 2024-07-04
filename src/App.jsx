@@ -1,10 +1,10 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from "react";
 
-import Home from "./components/Home";
-import SignupPage from './components/SignupPage';
-import LoginPage from './components/LoginPage';
-import ContactUsPage from './components/ContactUsPage';
+import Home from "../src/components/Home";
+import SignupPage from '../src/components/SignupPage';
+import LoginPage from '../src/components/LoginPage';
+import ContactUsPage from '../src/components/ContactUsPage';
 // import ProfilePage from './components/ProfilePage';
 
 import Georgia from "/DestinationPhotos/Georgia.png";
@@ -284,7 +284,7 @@ function App() {
 
   return (
     <>
-      <HashRouter>
+      <BrowserRouter>
         <Routes>
           <Route index element={<Home onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} />
           <Route path="/home" element={<Home onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} />
@@ -293,7 +293,7 @@ function App() {
           {/* <Route path="/profile" element={<ProfilePage onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} /> */}
           <Route path="/contactus" element={<ContactUsPage onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </>
   )
 }
