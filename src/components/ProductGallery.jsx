@@ -170,7 +170,7 @@ const ProductGallery = ({ currentContent }) => {
           </select>
         </div>
       </div>
-      <di>
+      <div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-20">
           {filteredTours.map((tour) => (
             <TourElement
@@ -185,7 +185,7 @@ const ProductGallery = ({ currentContent }) => {
           ))}
         </div>
         <ProfileCard currentContent={currentContent} chosenTours={chosenTours} />
-      </di>
+      </div>
     </div>
   );
 };
