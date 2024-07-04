@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Home from "./components/Home";
 import SignupPage from './components/SignupPage';
 import LoginPage from './components/LoginPage';
+import ProfilePage from './components/ProfilePage';
 
 import Georgia from "/DestinationPhotos/Georgia.png";
 import France from "/DestinationPhotos/France.png";
@@ -18,6 +19,7 @@ const content = {
         "Home": "მთავარი გვერდი",
         "Signup": "გაწევრიანება",
         "Login": "შესვლა",
+        "Profile": "პროფილი",
         "Name": "სახელით",
         "None": "არაფრით",
         "Date": "თარიღით",
@@ -108,6 +110,7 @@ const content = {
         "Home": "Home",
         "Signup": "Sign up",
         "Login": "Log in",
+        "Profile": "Profile",
         "Name": "Name",
         "None": "None",
         "Date": "Date",
@@ -222,6 +225,7 @@ function App() {
           <Route path="/home" element={<Home onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} />
           <Route path="/signup" element={<SignupPage onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} />
           <Route path="/login" element={<LoginPage onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} />
+          {/* <Route path="/profile" element={<ProfilePage onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} /> */}
         </Routes>
       </BrowserRouter>
     </>

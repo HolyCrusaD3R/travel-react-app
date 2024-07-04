@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 
+import ProfileCard from "./ProfileCard";
+import TourElement from "./TourElement";
+
 const ProductGallery = ({ currentContent }) => {
   const toursData = currentContent.toursData;
   const [hoveredTour, setHoveredTour] = useState(null);
@@ -13,6 +16,20 @@ const ProductGallery = ({ currentContent }) => {
     duration: "all",
     year: "all",
   });
+  const [chosenTours, setChosenTours] = useState([]);
+
+  const extractInteger = (tourId) => {
+    const tourIdStr = tourId.toString();
+
+    const match = tourIdStr.match(/^\d+/);
+
+    if(match) {
+      return parseInt(match[0],10);
+    }
+    return tourId;
+  }
+
+  const isTourChosen = (prevChosenTours, tourId) => prevChosenTours.some(tour => tour.id === tourId);
 
   const handleMouseEnter = (tourId) => {
     setHoveredTour(tourId);
@@ -20,6 +37,17 @@ const ProductGallery = ({ currentContent }) => {
 
   const handleMouseLeave = () => {
     setHoveredTour(null);
+  };
+
+  const handleMouseClick = (tourId) => {
+    const tourIdInt = extractInteger(tourId);
+    setChosenTours((prevChosenTours) => {
+      if (isTourChosen(prevChosenTours,tourIdInt)) {
+        return prevChosenTours.filter((tour) => tour.id !== tourIdInt);
+      } else {
+        return [...prevChosenTours, ...(toursData.filter((tour) => tour.id === tourIdInt))];
+      }
+    });
   };
 
   const sortTours = (tours, sortBy, sortOrder) => {
@@ -40,7 +68,7 @@ const ProductGallery = ({ currentContent }) => {
 
   const filterTours = (tours, filterCriteria) => {
     return tours.filter((tour) => {
-      const matchesSearchTerm = tour.name.toLowerCase().includes(filterCriteria.searchTerm.toLowerCase());
+      const matchesSearchTerm = tour.name.toLowerCase().includes(filterCriteria.searchTerm.toLowerCase()) || tour.description.toLowerCase().includes(filterCriteria.searchTerm.toLowerCase());
       const matchesCountry = filterCriteria.country === "all" || tour.name === filterCriteria.country;
       const durationFilter = filterCriteria.duration === "all" ? 0 : (filterCriteria.duration === "1hr+" || filterCriteria.duration === "1სთ+") ? 60 * 60 : (filterCriteria.duration === "3hr+" || filterCriteria.duration === "3სთ+") ? 3 * 60 * 60 : 5 * 60 * 60;
       const matchesDuration = tour.duration >= durationFilter;
@@ -59,9 +87,11 @@ const ProductGallery = ({ currentContent }) => {
     });
   };
 
+  
+
   return (
     <div className="flex flex-col items-center">
-      <div className="flex flex-col mb-4 mt-20 bg-gray-800 text-white rounded-lg p-5 items-center w-full space-y-4 sm:space-y-0 sm:flex-row sm:justify-between">
+      <div className="flex flex-col mb-4 mt-20 ml-20 mr-20 bg-gray-800 text-white rounded-lg p-5 items-center w-10/12 space-y-4 lg:space-y-0 lg:flex-row lg:justify-between">
         <div className="flex justify-start w-full mb-4">
           <label className="mr-2">{currentContent.SortBy}</label>
           <select
@@ -140,88 +170,26 @@ const ProductGallery = ({ currentContent }) => {
           </select>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-20">
-        {filteredTours.map((tour) => (
-          <TourElement
-            key={tour.id}
-            tour={tour}
-            isHovered={hoveredTour === tour.id}
-            onMouseEnter={() => handleMouseEnter(tour.id)}
-            onMouseLeave={handleMouseLeave}
-            currentContent={currentContent}
-          />
-        ))}
-      </div>
+      <di>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-20">
+          {filteredTours.map((tour) => (
+            <TourElement
+              key={tour.id}
+              tour={tour}
+              isHovered={hoveredTour === tour.id}
+              onMouseEnter={() => handleMouseEnter(tour.id)}
+              onMouseLeave={handleMouseLeave}
+              currentContent={currentContent}
+              onClick={() => handleMouseClick(tour.id)}
+            />
+          ))}
+        </div>
+        <ProfileCard currentContent={currentContent} chosenTours={chosenTours} />
+      </di>
     </div>
   );
 };
 
-const TourElement = ({ tour, isHovered, onMouseEnter, onMouseLeave, currentContent }) => {
-  const calculateTimeLeft = (startTime, duration) => {
-    const endTime = new Date(startTime.getTime() + duration * 1000);
-    const now = new Date();
-    let timeLeft = Math.max(0, endTime - now);
-    const years = Math.floor(timeLeft / (1000 * 60 * 60 * 24 * 365));
-    timeLeft -= years * (1000 * 60 * 60 * 24 * 365);
 
-    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-    timeLeft -= days * (1000 * 60 * 60 * 24);
-
-    const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-    timeLeft -= hours * (1000 * 60 * 60);
-
-    const minutes = Math.floor(timeLeft / (1000 * 60));
-    timeLeft -= minutes * (1000 * 60);
-
-    const seconds = Math.floor(timeLeft / 1000);
-    return {
-      years,
-      days,
-      hours,
-      minutes,
-      seconds,
-    };
-  };
-
-  const [timeLeft, setTimeLeft] = useState(
-    calculateTimeLeft(tour.startTime, tour.duration)
-  );
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft(tour.startTime, tour.duration));
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  return (
-    <div
-      className={`relative group ${isHovered ? "scale-105" : ""} transition-transform duration-300 ease-in-out`}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
-      <img
-        src={tour.image}
-        alt={tour.name}
-        className="w-full h-64 object-cover rounded-md shadow-md"
-      />
-      <div className="absolute inset-0 bg-white bg-opacity-45 hidden group-hover:flex flex-col justify-center items-center p-4">
-        <h3 className="font-bold text-lg mb-2">{tour.name}</h3>
-        {isHovered && (
-          <div className="text-center">
-            <p className="text-sm">
-              {currentContent.Starts} {tour.startTime.toLocaleTimeString()}
-            </p>
-            <p className="text-sm">
-              {currentContent.TimeLeft} {timeLeft.years}{currentContent.Year} {timeLeft.days}{currentContent.Day} {timeLeft.hours}{currentContent.Hour} {timeLeft.minutes}{currentContent.Minute}{" "}
-              {timeLeft.seconds}{currentContent.Second}
-            </p>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
 
 export default ProductGallery;

@@ -8,20 +8,17 @@ const LoginForm = ({ currentContent }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Basic form validation
     if (!email || !password) {
       setErrorMessage(currentContent.FillAllFields);
       return;
     }
 
-    // Submit the form (this is just a placeholder, you can replace it with an actual API call)
     console.log({ email, password });
     setErrorMessage('');
     alert(currentContent.LoginSuccess);
   };
 
   const handleFacebookLogin = () => {
-    // Placeholder for Facebook login logic
     alert('Logging in with Facebook...');
   };
 

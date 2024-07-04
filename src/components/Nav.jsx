@@ -10,6 +10,7 @@ const Nav = ({onLanguageSwitch, currentContent}) => {
                 <NavLink href="/signup">{currentContent.Signup}</NavLink>
                 <NavLink href="/login">{currentContent.Login}</NavLink>
                 <NavLink href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">Facebook</NavLink>
+                {/* <NavLink href="/profile">{currentContent.Profile}</NavLink> */}
                 <button onClick={onLanguageSwitch}>{currentContent.Flag}</button>
             </nav>
         </>
