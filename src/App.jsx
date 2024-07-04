@@ -284,7 +284,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route index element={<Home onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} />
           <Route path="/home" element={<Home onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} />
@@ -293,7 +293,7 @@ function App() {
           {/* <Route path="/profile" element={<ProfilePage onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} /> */}
           <Route path="/contactus" element={<ContactUsPage onLanguageSwitch={updateLanguage} currentContent={currentContent}/>} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </>
   )
 }
