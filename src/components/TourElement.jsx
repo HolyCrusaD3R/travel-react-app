@@ -41,7 +41,7 @@ const TourElement = ({ tour, isHovered, onMouseEnter, onMouseLeave, onClick, cur
 
   return (
     <div
-      className={`relative group ${isHovered ? "scale-105" : ""} transition-transform duration-300 ease-in-out text-black`}
+      className={`relative group ${isHovered ? "scale-105" : ""} transition-transform duration-300 ease-in-out text-black shadow-md`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
