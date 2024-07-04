@@ -1,10 +1,10 @@
 import { HashRouter, BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from "react";
 
-import Home from "../src/components/Home";
-import SignupPage from '../src/components/SignupPage';
-import LoginPage from '../src/components/LoginPage';
-import ContactUsPage from '../src/components/ContactUsPage';
+import Home from "./Home";
+import SignupPage from './SignupPage';
+import LoginPage from './LoginPage';
+import ContactUsPage from './ContactUsPage';
 // import ProfilePage from './components/ProfilePage';
 
 import Georgia from "/DestinationPhotos/Georgia.png";
